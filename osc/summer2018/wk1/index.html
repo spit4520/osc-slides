@@ -41,14 +41,84 @@
 <!-- SLIDE CONTENT GOES BELOW HERE HERE -->
 
 <section>
-	<h3>Wat</h3>
+	<h3>hmmm</h3>
 	<p>Open Source Club<br>Summer 2018 - Week 1</p>
-	<p><a id='audience_location'></a></p>
-	<p><a href='https://www.destroyallsoftware.com/talks/wat'>https://www.destroyallsoftware.com/talks/wat</a><p>
+	<p style="white-space:nowrap">Follow Along: <a id='audience_location'></a></p>
+	<p>Inspired By: <a href='https://www.destroyallsoftware.com/talks/wat'>https://www.destroyallsoftware.com/talks/wat</a><p>
 </section>
 
 <section>
 	<img src='https://i.kym-cdn.com/photos/images/newsfeed/000/173/576/Wat8.jpg' class='plain'></img>
+</section>
+
+<section>
+	<img src='https://i.redd.it/7u7ik36hz2lz.jpg' class='plain'></img>
+	<p>hmmm</p>
+</section>
+
+<section id='java-wat'>
+	<h3>Java Strings</h3>
+	<section id='java-1'>
+		<pre>
+public class wat {
+	public static void main(String [] args) {
+		String a = "hello";
+		String b = "hello";
+
+		if (a == b) {
+			System.out.println("they're equal");
+		} else {
+			System.out.println("they're NOT equal");
+		}
+	}
+}
+</pre>
+<pre class="fragment fade-in">
+>> they're equal
+</pre>
+</section>
+
+<section id='java-2'>
+<pre>
+public class wat {
+	public static void main(String [] args) {
+		String a = new String("hello");
+		String b = new String("hello");
+
+		if (a == b) {
+			System.out.println("they're equal");
+		} else {
+			System.out.println("they're NOT equal");
+		}
+	}
+}
+</pre>
+<pre class="fragment fade-in">
+>> they're NOT equal
+</pre>
+</section>
+
+<section id='java-3'>
+<pre>
+public class wat {
+	public static void main(String [] args) {
+		String a = new String("hello");
+		String b = new String("hello");
+
+		if (a.equals(b)) {
+			System.out.println("they're equal");
+		} else {
+			System.out.println("they're NOT equal");
+		}
+	}
+}
+</pre>
+<pre class="fragment fade-in">
+>> they're equal
+</pre>
+<p class="fragment fade-in">&#x1F914;</p
+</section>
+
 </section>
 
 <!--------------------- END OF THE SLIDES ------------------------------------>
