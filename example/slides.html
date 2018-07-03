@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>EuroTCL - 2016 - Microoptimization</title>
+    <meta name="description" content="">
+    <meta name="author" content="Richard Hipp">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/sqlite.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+<!--------------------- SLIDE CONTENT GOES HERE ------------------------------>
+<section>
+  <h3>Improving TCL Core Performance<br>Using Micro-optimizations</h3>
+  <p>EuroTCL 2016 &mdash; Eindhoven<br>2016-06-26</p>
+  <p><a href='https://www.sqlite.org/tcltalks/' target='_blank'>
+   https://www.sqlite.org/tcltalks/</a></p>
+</section>
+
+<section>
+<h3>CPU Cycles Used by SQLite</h3>
+<p><img src='speed1.jpg'></img><br>
+<font size="4">Ubuntu 14.04 x86_64, gcc 4.8.4, -Os</font></p>
+</section>
+
+<section>
+<p>Can similiar optimizations be applied to TCL in order to double the
+speed of the interpreter?</p>
+</section>
+
+<section>
+<h3>Amalgation vs. Separate Files</h3>
+<table>
+<thead>
+<tr><th>Build<th>CPU Cycles<th>Performance
+</thead>
+<tbody>
+<tr><td>Separate -Os<td>1532.966911<td>baseline
+<tr><td>Separate -O6<td>1522.189222<td>-0.7%
+<tr><td>Amalgamation -Os<td>1459.618198<td>-4.8%
+<tr><td>Amalgamation -O6<td>1430.548506<td>-6.7%
+</tbody>
+</table>
+</section>
+
+<section>
+<img src='mksqlite3c.jpg' class='plain'></img>
+<p><a href='https://www.sqlite.org/src/artifact/63af842' target='_blank'>
+https://www.sqlite.org/src/artifact/63af842</a></p>
+</section>
+
+<section>
+<img src='mktcl86c.jpg' class='plain'></img>
+</section>
+
+<section>
+<h2>Amalgamation Advantages</h2>
+<ul>
+<li> Runs faster
+<li> Compiler optimizations are more effective
+<li> Easier to integrate into another project
+</ul>
+</section>
+
+<section>
+<h3>Tools You Will Need</h3>
+<ol>
+<li> A high-quality test suite
+<li> A deterministic TCL script that represents a "typical" workload
+<ul>
+<li> No threads
+<li> No <b>[eval {rand()}]</b>
+</ul>
+<li> Linux workstations with lots of pixels
+<li> valgrind/cachegrind installed
+</ul>
+</section>
+
+<section>
+<h3><a href='http://lcamtuf.coredump.cx/afl/' target='_blank'>lcamtuf.coredump.cx/afl/</a>
+</h3>
+<img src='afl.jpg'></img>
+</section>
+
+<section>
+<h2>Algorithm</h2>
+<ol>
+<li> Run the workload script using cachegrind
+<li> Study cachegrind output to find microoptimizations
+<li> Make code changes
+<li> Test, test, test....
+<li> Goto 1
+</ol>
+</section>
+
+<section>
+  <section>
+  <h2>Running The Workload</h2>
+  <pre>
+
+  rm -f cachegrind.out.*
+  make clean tclsh
+  valgrind --tool=cachegrind ./tclsh workload.tcl
+  cg_anno.tcl cachegrind.out.* >cout-current.txt
+  fossil test-diff --tk cout-baseline.tcl cout-current.txt &
+
+  </pre>
+  </section>
+
+  <section>
+  <h2><a href='./cg_anno.txt' target='_blank'>cg_anno.tcl</a></h2>
+  <pre>
+ #!/usr/bin/tclsh
+ set in [open "|cg_annotate --show=Ir --auto=yes $argv" r]
+ set dest !
+ set out(!) {}
+ while {![eof $in]} {
+   set line [gets $in]
+   set line [string map {\t {        }} [gets $in]]
+   if {[regexp {^-- Auto-annotated source: (.*)} $line all nm]} {
+     set dest $nm
+   } elseif {[regexp {^-- line \d+ ------} $line]} {
+     set line [lreplace $line 2 2 {#}]
+   } elseif {[regexp {^The following files chosen for } $line]} {
+     set dest !
+   }
+   append out($dest) $line\n
+ }
+ foreach x [lsort [array names out]] {
+   puts $out($x)
+ }
+  </pre>
+  </section>
+</section>
+
+<section>
+<p>
+<a href='https://www.sqlite.org/src/info/618d8dd4ff4' target='_blank'>
+https://www.sqlite.org/src/info/618d8dd4ff4</a></p>
+<pre>
+
+ 514,274  const int bMmapOk = (pgno<font color='red'>!=</font>1 && USEFETCH(pPager)
+ 771,867   && (pPager->eState==PAGER_READER || (flags & PAGER_GE
+       .  );  
+ 514,274  if( pgno==0 ){
+       .    return SQLITE_CORRUPT_BKPT;
+       .  }
+
+</pre>
+<p>Before &#8593; &nbsp; &nbsp; After &#8595; </p>
+<pre>
+
+ 514,274  const int bMmapOk = (pgno<font color='red'>&gt;</font>1 && USEFETCH(pPager)
+ 514,578   && (pPager->eState==PAGER_READER || (flags & PAGER_GE
+       .  );  
+     304  if( pgno<=1 && pgno==0 ){
+ 257,289    return SQLITE_CORRUPT_BKPT;
+       .  }
+
+</pre>
+<p>Saved 513K cycles out of 675M = 0.07%</p>
+</section>
+
+<section>
+<h2>Demo Workload</h2>
+<pre>
+
+  # Speed test workload demo #1
+  #
+  set res {}
+  for {set j 0} {$j<1000} {incr j} {
+    set a0 1
+    set a1 1
+    for {set i 0} {$i<30} {incr i} {
+      set x [expr {$a0+$a1}]
+      set a0 $a1
+      set a1 $x
+      append res " $x"
+    }
+  }
+  puts $res
+
+</pre>
+</section>
+
+<section>
+<h2>Cachegrind Output</h2>
+<pre>
+
+ 262,402,580  PROGRAM TOTALS
+ --------------------------------------------------------------
+  49,838,612  /tmp/generic/tclExecute.c:TEBCresume
+  32,018,100  /tmp/generic/tclNamesp.c:TclGetNamespaceForQualNam
+  26,221,282  /tmp/generic/tclVar.c:TclObjLookupVarEx
+  24,875,355  /tmp/generic/tclVar.c:ObjFindNamespaceVar
+  24,844,452  /tmp/generic/tclHash.c:CreateHashEntry
+  21,851,978  /tmp/generic/tclVar.c:TclLookupSimpleVar
+   8,220,562  /tmp/generic/tclObj.c:TclHashObjKey
+   7,623,937  /tmp/generic/tclVar.c:TclPtrSetVar
+  <font color='red'> 6,500,844  /tmp/generic/tclVar.c:CompareVarKeys</font>
+   6,169,552  pthread_getspecific.c:pthread_getspecific
+   5,403,119  /tmp/generic/tclUtil.c:Tcl_DStringFree
+   4,369,586  /tmp/generic/tclVar.c:FreeParsedVarName
+   3,741,590  /tmp/generic/tclThreadAlloc.c:TclpAlloc
+   3,682,721  /tmp/generic/tclEncoding.c:UtfToUtfProc.isra.0
+  
+</pre>
+</section>
+
+<section>
+  <section>
+  <pre>
+  
+          .  static int CompareVarKeys(
+          .      void *keyPtr, 
+          .      Tcl_HashEntry *hPtr)
+  2,016,738  {
+          .      Tcl_Obj *objPtr1 = keyPtr;
+    336,123      Tcl_Obj *objPtr2 = hPtr->key.objPtr;
+          .      register const char *p1, *p2;
+          .      register int l1, l2;
+    672,246      if (objPtr1 == objPtr2) {
+    672,246          return 1;
+          .      }
+     90,126      p1 = TclGetString(objPtr1);
+     30,042      l1 = objPtr1->length;
+     90,126      p2 = TclGetString(objPtr2);
+          .      l2 = objPtr2->length;
+    240,336      return ((l1 == l2) && !memcmp(p1, p2, l1));
+  2,352,861  }
+  
+  </pre>
+  </section>
+
+  <section>
+  <h3>CPU Registers</h3>
+  <p><img src='registers.jpg' class='plain'></img></p>
+  </section>
+
+  <section>
+  <h3>Registers must push to stack if...</h3>
+  <ul>
+  <li> Many registers needed &mdash; complex function
+  <li> Subroutines called, except tail recursion
+  </ul>
+  </section>
+</section>
+
+<section>
+  <section>
+  <pre>
+
+        .  static int CompareVarKeys(
+        .      void *keyPtr,
+        .      Tcl_HashEntry *hPtr)
+        .  {
+        .      Tcl_Obj *objPtr1 = keyPtr;
+  336,123      Tcl_Obj *objPtr2 = hPtr->key.objPtr;
+  672,246      if (objPtr1 == objPtr2) {
+        .          return 1;
+        .      } else {
+   30,042          return CompareDtnctVarKeys(objPtr1, objPtr2);
+        .      }
+  612,162  }
+        .  static TCL_NOINLINE int CompareDtnctVarKeys(
+        .      Tcl_Obj *objPtr1,
+        .      Tcl_Obj *objPtr2)
+  150,210  {
+   90,126      const char *p1 = TclGetString(objPtr1);
+   30,042      int l1 = objPtr1->length;
+   90,126      const char *p2 = TclGetString(objPtr2);
+        .      int l2 = objPtr2->length;
+  270,378      return ((l1 == l2) && !memcmp(p1, p2, l1));
+  120,168  }
+
+  </pre>
+  </section>
+
+  <section>
+  <h2>TCL_NOINLINE</h2>
+  <pre>
+
+  #if defined(__GNUC__)
+  #  define TCL_NOINLINE  __attribute__((noinline))
+  #elif defined(_MSC_VER) && _MSC_VER>=1310
+  #  define TCL_NOINLINE  __declspec(noinline)
+  #else
+  #  define TCL_NOINLINE
+  #endif
+
+  </pre>
+  <p>Currently on branch
+  <a href='https://core.tcl.tk/tcl/timeline?r=mig-opt2' target='_blank'>mig-opt2</a>.
+  Not yet on trunk</p>
+  </section>
+</section>
+
+<section>
+<h2>End Result</h2>
+<ul>
+<li> Saved about 4M cycles out of 262M &rarr; 1.5% faster!
+<li> This change is not checked in because Miguel found a better
+     way to fix the frequent calls to CompareVarKeys()
+</ul>
+</section>
+
+<section>
+<pre>
+
+  2,021,099,349  PROGRAM TOTALS
+  -----------------------------------------------------
+  390,649,348  /tmp/generic/tclExecute.c:TEBCresume
+  <font color='red'>150,647,394  ???:pthread_getspecific</font>
+  123,209,668  /tmp/generic/tclHash.c:CreateHashEntry
+  118,133,666  /tmp/generic/tclObj.c:TclHashObjKey
+   74,396,324  /tmp/generic/tclVar.c:UnsetVarStruct
+   73,162,765  /tmp/generic/tclThreadAlloc.c:TclpAlloc
+   56,342,657  /tmp/generic/tclThreadAlloc.c:TclpFree
+  
+</pre>
+</section>
+
+<section>
+<pre>
+
+         .  void *
+         .  TclpGetAllocCache(void)
+         1  {
+17,368,092     if (!initialized) {
+         2        pthread_mutex_lock(allocLockPtr);
+         3        if (!initialized) {
+         3           pthread_key_create(&key,TclpFreeAllocCache);
+         1           initialized = 1;
+         .        }
+         2        pthread_mutex_unlock(allocLockPtr);
+         .     }
+11,578,728     return pthread_getspecific(key);
+         2  }
+
+</pre>
+</section>
+
+<section>
+<h3><a href='https://core.tcl.tk/tcl/info/fdbf64dc501ff0a0' target='_blank'>
+Check-in [fdbf64dc50]</a></h3>
+<pre>
+
+         .  void *
+         .  TclpGetAllocCache(void)
+         .  {
+11,578,728      return pthread_getspecific(key);
+         .  }
+
+</pre>
+<p>Saved 17.3M out of 2021M cycles &rarr; 0.99% faster</p>
+</section>
+
+<section>
+<h2>Takeaways</h2>
+<ul>
+<li> CPUs have stopped getting faster &mdash; future performance gains must
+     come from code optimization
+<li> TCL is ripe for micro-optimization
+<li> Use cachegrind for repeatable measurements
+<li> Many 0.1% improvements add up over time
+<li> Doubling the speed of TCL is possible
+</ul>
+</section>
+  
+<!--------------------- END OF THE SLIDES ------------------------------------>
+
+      </div>
+    </div>
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.js"></script>
+
+    <script>
+
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
