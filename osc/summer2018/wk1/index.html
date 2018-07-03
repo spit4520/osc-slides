@@ -6,7 +6,7 @@
 
     <title>OSC Week 1 - Wat</title>
     <meta name="description" content="">
-    <meta name="author" content="Richard Hipp">
+    <meta name="author" content="Brian Chrzanowski">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -28,6 +28,7 @@
       document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 
+
   </head>
 
   <body>
@@ -40,11 +41,10 @@
 <!-- SLIDE CONTENT GOES BELOW HERE HERE -->
 
 <section>
-	<!-- get cheeky with our "where to find this" -->
-  <h3>(Programming) Wat</h3>
-  <p>Open Source Club<br>Summer 2018 - Week 1</p>
-  <p><a href='https://www.sqlite.org/tcltalks/' target='_blank'>
-   https://www.sqlite.org/tcltalks/</a></p>
+	<h3>Wat</h3>
+	<p>Open Source Club<br>Summer 2018 - Week 1</p>
+	<p><a id='audience_location'></a></p>
+	<p><a href='https://www.destroyallsoftware.com/talks/wat'>https://www.destroyallsoftware.com/talks/wat</a><p>
 </section>
 
 <section>
@@ -79,8 +79,13 @@
           { src: '../../../lib/reveal.js/plugin/notes/notes.js', async: true }
         ]
       });
-
     </script>
+
+	<!-- getting the slides location -->
+	<script>
+		document.getElementById("audience_location").innerHTML = window.location.href;
+		document.getElementById("audience_location").href = window.location.href;
+	</script>
 
   </body>
 </html>
