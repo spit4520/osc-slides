@@ -74,7 +74,7 @@
 </code></pre>
 
 <pre class="fragment fade-in">
->> they're equal
+they're equal
 </pre>
 </section>
 
@@ -94,7 +94,7 @@
 </code></pre>
 
 <pre class="fragment fade-in">
->> they're NOT equal
+they're NOT equal
 </pre>
 </section>
 
@@ -113,7 +113,7 @@
 }
 </code></pre>
 <pre class="fragment fade-in">
->> they're equal
+they're equal
 </pre>
 <p class="fragment fade-in">&#x1F914;</p>
 </section>
@@ -124,15 +124,72 @@
 
 <!-- C# 'goes to' operator -->
 <section id='c-sharp-wat'>
-<h3>C# Goes To Operator</h3>
+<h3>C# Goes To/Is Approached By Operator</h3>
+
+<section id='c-sharp-wat-intro'>
+<p>
+April 2010, C# language designers put in a new, revolutionary operator
+without affecting the language's release schedule.
+<br>
+This is the operator '<code>--></code>'
+</p>
+
+</section>
 
 <section id='c-sharp-wat-1'>
+<pre><code class="csharp">int x = 10;
+// this is read "while x goes to zero"
+while (x --> 0)
+{
+	Console.WriteLine("x = " + x);
+}
+</code></pre>
+<pre class="fragment fade-in">
+x = 9
+x = 8
+x = 7
+...
+x = 0
+</pre>
 </section>
 
 <section id='c-sharp-wat-2'>
+<pre><code class="csharp">int x = 10;
+// this is read "while zero is approached by x"
+while (0 <-- x)
+{
+	Console.WriteLine("x = " + x);
+}
+</code></pre>
+<pre class="fragment fade-in">
+x = 9
+x = 8
+x = 7
+...
+x = 0
+</pre>
 </section>
+<!-- weird syntax, thanks msoft ;) -->
 
 <section id='c-sharp-wat-3'>
+<pre><code class="csharp">int x = 10;
+// this is read "while zero is approached by x"
+while (0 < --x)
+{
+	Console.WriteLine("x = " + x);
+}
+</code></pre>
+</section>
+
+<section id='c-sharp-wat-4'>
+<pre><code class="csharp">int x = 10;
+// this is read "while zero is approached by x"
+while (0 < (--x))
+{
+	Console.WriteLine("x = " + x);
+}
+</code></pre>
+<p class="fragment fade-in">&#x1F914;</p>
 </section>
 
 </section> <!-- ends C# goes to -->
