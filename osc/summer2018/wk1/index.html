@@ -137,62 +137,264 @@ This is the operator '<code>--></code>'
 </section>
 
 <section id='c-sharp-wat-1'>
-<pre><code class="csharp">int x = 10;
+<pre><code class="csharp">int x = 1000, a = 0;
 // this is read "while x goes to zero"
 while (x --> 0)
 {
-	Console.WriteLine("x = " + x);
+	if (x % 3 == 0 || x % 5 == 0) {
+		a += x;
+	}
 }
+Console.WriteLine(a);
 </code></pre>
 <pre class="fragment fade-in">
-x = 9
-x = 8
-x = 7
-...
-x = 0
+233168
 </pre>
 </section>
 
 <section id='c-sharp-wat-2'>
-<pre><code class="csharp">int x = 10;
+<pre><code class="csharp">int x = 1000, a = 0;
 // this is read "while zero is approached by x"
 while (0 <-- x)
 {
-	Console.WriteLine("x = " + x);
+	if (x % 3 == 0 || x % 5 == 0) {
+		a += x;
+	}
 }
+Console.WriteLine(a);
 </code></pre>
 <pre class="fragment fade-in">
-x = 9
-x = 8
-x = 7
-...
-x = 0
+233168
 </pre>
 </section>
-<!-- weird syntax, thanks msoft ;) -->
 
 <section id='c-sharp-wat-3'>
-<pre><code class="csharp">int x = 10;
-// this is read "while zero is approached by x"
-while (0 < --x)
-{
-	Console.WriteLine("x = " + x);
-}
+<pre><code class="csharp">while (0 < --x)
 </code></pre>
 </section>
 
 <section id='c-sharp-wat-4'>
-<pre><code class="csharp">int x = 10;
-// this is read "while zero is approached by x"
-while (0 < (--x))
-{
-	Console.WriteLine("x = " + x);
-}
+<pre><code class="csharp">while (0 < (--x))
 </code></pre>
-<p class="fragment fade-in">&#x1F914;</p>
+</section>
+
+<section id='c-sharp-wat-5'>
+<img src="http://i.imgur.com/GW3si.gif"/>
 </section>
 
 </section> <!-- ends C# goes to -->
+
+<section id='python-wat'>
+
+<section id='python-wat-1'>
+<p>Let's talk about python...</p>
+<pre class="fragment fade-in"><code class="python">False == False in [False]
+</code></pre>
+<pre class="fragment fade-in"><code class="python">> True</code></pre>
+</section>
+
+<section id='python-wat-2'>
+<pre><code class="python">(False == False) in [False]
+</code></pre>
+<pre class="fragment fade-in"><code class="python">> False</code></pre>
+</section>
+
+<section id='python-wat-3'>
+<pre><code class="python">False == (False in [False])
+</code></pre>
+<pre class="fragment fade-in"><code class="python">> False</code></pre>
+</section>
+
+<section id='python-wat-4'>
+<p>So then, why is it "True"?</p>
+</section>
+
+<section id='python-wat-5'>
+<p>Let's examine the expression tree</p>
+<pre><code class="python">
+>>> import ast
+>>> import astpretty
+>>> astpretty.pprint(ast.parse('False == False in [False]').body[0].value)
+Compare(
+    lineno=1,
+    col_offset=0,
+    left=Name(lineno=1, col_offset=0, id='False', ctx=Load()),
+    ops=[
+        Eq(),
+        In(),
+    ],
+    comparators=[
+        Name(lineno=1, col_offset=9, id='False', ctx=Load()),
+        List(
+            lineno=1,
+            col_offset=18,
+            elts=[Name(lineno=1, col_offset=19, id='False', ctx=Load())],
+            ctx=Load(),
+        ),
+    ],
+)
+</code></pre>
+</section>
+
+<section id='python-wat-6'>
+<p>What does this even mean, Brian!</p>
+<pre><code class="python">x = 5
+4 < x < 6 # pythons compound comparison
+> True
+</code></pre>
+</section>
+
+<section id='python-wat-7'>
+<p>What does this even mean Brian!</p>
+<pre><code class="python">x = 5
+4 < x and x < 6 # non-compound comparators
+> True
+</code></pre>
+</section>
+
+<section id='python-wat-8'>
+<p>What does this even mean Brian!</p>
+<pre><code class="python">False == False and False in [False]
+> True
+</code></pre>
+</section>
+
+</section> <!-- ends python wat -->
+
+<section id='javascript-wat'>
+
+<section id='javascript-wat-1'>
+<h3>Let's Chat about Javascript</h3>
+<p class="fragment fade-in">Javascript is garbage</p>
+<p class="fragment fade-in">Not because everyone uses it...</p>
+<p class="fragment fade-in">... but for <b>SOME</b> of these reasons.</p>
+</section>
+
+<section id='javascript-wat-2'>
+<h3>Let's Chat about Javascript</h3>
+<img src="https://pbs.twimg.com/media/CwctTr4WQAAXDNa.png:small"></img>
+</section>
+
+<section id='javascript-wat-3'>
+<p>Here's why nothing about it makes sense</p>
+<pre><code class="js">x = [0]</code></pre>
+<pre><code class="js">x == x</code></pre>
+<pre><code class="js">> true</code></pre>
+<pre><code class="js">x != x</code></pre>
+<pre><code class="js">> true</code></pre>
+</section>
+
+<section id='javascript-wat-4'>
+<p>What about arrays created from strings?</p>
+<pre><code class="js">Array(3)=",,"</code></pre>
+<pre><code class="js">true</code></pre>
+<img class="fragment fade-in"
+	src="https://i.kym-cdn.com/photos/images/original/000/173/580/Wat.jpg"</img>
+</section>
+
+<section id='javascript-wat-5'>
+<p>You might assume that because it has objects, it's got a pretty good type system... Right?</p>
+<pre><code class="js"> typeof NaN</code></pre>
+<pre class="fragment fade-in"><code class="js">> "number"</code></pre>
+<pre class="fragment fade-in"><code class="js">NaN == NaN</code></pre>
+<pre class="fragment fade-in"><code class="js">> false</code></pre>
+<pre class="fragment fade-in"><code class="js">typeof null</code></pre>
+<pre class="fragment fade-in"><code class="js">> "object"</code></pre>
+<pre class="fragment fade-in"><code class="js">null instanceof Object</code></pre>
+<pre class="fragment fade-in"><code class="js">> false</code></pre>
+<pre class="fragment fade-in"><code class="js">"string" instanceof String</code></pre>
+<pre class="fragment fade-in"><code class="js">> false</code></pre>
+</section>
+
+<section id='javascript-wat-6'>
+<p>Javascript: Someone got bored, made a language,
+	tested half of the useful cases</p>
+</section>
+
+<section id='javascript-wat-7'>
+<p>Let's do some fun math</p>
+<pre><code class="js">  9999999999999999</code></pre>
+<pre class="fragment fade-in"><code class="js">> 10000000000000000</code></pre>
+<pre class="fragment fade-in"><code class="js">0.1 + 0.2 == 0.3</code></pre>
+<pre class="fragment fade-in"><code class="js">> false</code></pre>
+<pre class="fragment fade-in"><code class="js">Math.max() < Math.min()</code></pre>
+<pre class="fragment fade-in"><code class="js">> true</code></pre>
+<img width="50%" src="https://i.kym-cdn.com/photos/images/newsfeed/000/819/397/a2d.png"
+class="fragment fade-in"></pre>
+</section>
+
+<section id='javascript-wat-8'>
+<p>Anyone ever heard of boolean arithmetic?</p>
+<p class="fragment fade-in">Javascript hasn't</p>
+<pre class="fragment fade-in"><code class="js">true + true === 2</code></pre>
+<pre class="fragment fade-in"><code class="js">> true</code></pre>
+<pre class="fragment fade-in"><code class="js">true - true === 0</code></pre>
+<pre class="fragment fade-in"><code class="js">> true</code></pre>
+<pre class="fragment fade-in"><code class="js">true === 1</code></pre>
+<pre class="fragment fade-in"><code class="js">> false</code></pre>
+<pre class="fragment fade-in"><code class="js">true == 1</code></pre>
+<pre class="fragment fade-in"><code class="js">> true</code></pre>
+</section>
+
+<section id='javascript-wat-9'>
+<p>Is there anything that isn't terrible?</p>
+<p class="fragment fade-in">Probably not</p>
+<pre class="fragment fade-in"><code class="js">[] + []</code></pre>
+<pre class="fragment fade-in"><code class="js">> ""</code></pre>
+<pre class="fragment fade-in"><code class="js">[] + {}</code></pre>
+<pre class="fragment fade-in"><code class="js">> "[object Object]" // tells us the type is object</code></pre>
+<pre class="fragment fade-in"><code class="js">{} + []</code></pre>
+<pre class="fragment fade-in"><code class="js">> 0</code></pre>
+<pre class="fragment fade-in"><code class="js">{} + {}</code></pre>
+<pre class="fragment fade-in"><code class="js">> NaN</code></pre>
+</section>
+
+<section id='javascript-wat-11'>
+<img src="https://i.redditmedia.com/dYRpia2o3j6g44n3RG5Y5pJM1K-zr9qaquVkEZv8N4s.jpg?w=500&s=4dd79c75f65c7647c99f6847f9a5dd20"></img>
+</section>
+
+<section id='javascript-wat-12'>
+<img src="https://i.redditmedia.com/CJjG6DsU2tq4VUZra5mOwkgSlQ6rFeJBnfzeCdRss68.jpg?w=737&s=1a46c5c4ecc44bf61bdfebcae5aed640"></img>
+</section>
+
+<section id='javascript-wat-13'>
+<img src="https://i.redd.it/1jgr0fd89q811.jpg"></img>
+</section>
+
+<section id='javascript-wat-14'>
+	<p>You'd think we could be done, right?</p>
+	<p>You're wrong.</p>
+</section>
+</section> <!-- ending of javascript-wat -->
+
+
+<section id='javascript-wtf'>
+
+
+<section id='javascript-wtf-1'>
+<pre><code class="js">(!+[]+[]+![]).length</code></pre>
+<div class="fragment fade-in"><img src="javascript-wat.png"></img></div>
+</section>
+
+<section id='javascript-wtf-2'> 
+<p>But really though, from what we've seen, Array operations work</p>
+<pre class="fragment fade-in"><code class="js">Array(16)</code></pre>
+<pre class="fragment fade-in"><code class="js">> (16) [empty x 16]</code></pre>
+<pre class="fragment fade-in"><code class="js">Array(16).join('wat')</code></pre>
+<pre class="fragment fade-in"><code class="js">> "watwatwatwatwatwatwatwatwatwatwatwatwatwatwat"</code></pre>
+<pre class="fragment fade-in"><code class="js">Array(16).join('wat' + 1)</code></pre>
+<pre class="fragment fade-in"><code class="js">> "wat1wat1wat1wat1wat1wat1wat1wat1wat1wat1wat1wat1wat1wat1wat1"</code></pre>
+<pre class="fragment fade-in"><code class="js">Array(16).join('wat' - 1)</code></pre>
+<pre class="fragment fade-in"><code class="js">Array(16).join('wat' - 1) + " Batman!"</code></pre>
+<pre class="fragment fade-in"><code class="js">> "NaNNaNNaNNaNNaNNaNNaNNaNNaNNaNNaNNaNNaNNaNNaN Batman!"</code></pre>
+</section>
+
+<section id='javascript-wtf-3'>
+<img src="https://cdn-images-1.medium.com/max/1400/1*hDhKWYG4q4BcKsdXXvyi4Q.png">
+</section>
+
+</section>
+
 
 <!-- ending slide -->
 <section id='ending'>
