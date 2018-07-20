@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>GoLang-2018 The Best Thing Since Sliced Bread</title>
+    <meta name="description" content="">
+    <meta name="author" content="Scott Joseph Spitler II aka Wolfgang Hephaestus">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../../lib/css/reveal.css">
+    <link rel="stylesheet" href="../../../lib/css/oscslides.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../../lib/reveal.js/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+<!-- SLIDE CONTENT GOES BELOW HERE HERE -->
+
+<section>
+	<h2>GoLang Its C, But For The Web!</h2>
+	<p>Well Kinda, It Looks A Bit Weird<br>Summer 2018 - Week 2</p>
+	<i>Open Source Club<br>Summer 2018 - Week 2</i>
+	<br><br>
+	<p>Follow Along: <a id='audience_location'></a></p>
+	<p>Inspired By: <a href='https://www.destroyallsoftware.com/talks/wat'>https://www.destroyallsoftware.com/talks/wat</a><p>
+</section>
+
+<section>
+	<h2>Go, Its A Thing</h2>
+	<img src='https://blog.golang.org/go-brand/logos.jpg' class='plain'></img>
+</section>
+<!--If you see this slide and want to delete it, don't its adorable. Warms my cold heart <3-->
+<section>
+	<img src='https://i.redd.it/7u7ik36hz2lz.jpg' class='plain'></img>
+	<p>hmmm</p>
+</section>
+
+<section>
+	<p>soooo where did it come from? Why is it here.</p>
+</section>
+
+<section>
+	<p>Great question!</p>
+</section>
+
+<section>
+	<p>Alright so. Warning, there is some history with a lot of text coming.</p>
+</section>
+
+<section>
+	<p>So Google needed a new language that was faster than PHP, scaled easily, concurency was built into the language, and most importantly build times for large programs could be done in SECONDS.</p>
+</section>
+
+<section>
+	<p>Hey Brother, that's a pretty tall order. But there is a bigger question here. They must of had issues in the past in order to need something this specific to fulfill them. Well lets take a BREIF walk down memory lane with google.</p>
+</section>
+
+<section>
+	<p>In the beginning there was nothing, and life was simple. Then came the Babbage Engine</p>
+</section>
+<section>
+	<img src='http://images.computerhistory.org/babbage/babbage-engine-main.jpg?w=860' class='plain'></img>
+</section>
+
+<section>
+	<p>And Life Was Good.</p>
+</section>
+
+<section>
+	<p>Are You Lost? Good Lets Get Back On Topic.</p>
+</section>
+
+<section>
+	<ul>
+		<li>
+			<p>
+			C++ is a good language, but Google was hitting the limits of the language with their software. LITERALLY, build times could take upwards of 25 minutes at a time.
+			</p>
+		</li>
+		<li>
+			<p>
+			PHP used to be the Perl of the web that was very fast for what it was, but Google found a way to find its limitation too
+			</p>
+		</li>
+		<li>
+			<p>
+			Java is just slow. Do not write webservers in Java, Bad.
+			</p>
+		</li>
+		<li>
+			<p>
+			There was not a good language that could scale well, while maintaining good concurency, and having sane syntax for the common man.
+			</p>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<p>
+	So if you were a multi billion dollar company with the power to create basically anything if you just WILLED IT into existance, What would you do?
+	</p>
+</section>
+
+<section>
+	<p>
+	So they assembled an elite team of programmers to make it happen.
+	</p>
+</section>
+
+<section>
+	<p>
+	Here is the entire Roster: 
+	</p>
+	<ul>
+		<li>
+			<p>
+			Robert Griesemer --> known for the V8 Javascript Engine and GFS
+			</p>
+		</li>
+		<li>
+			<p>
+			Rob Pike --> known for UTF-8 encoding
+			</p>
+		</li>
+		<li>
+			<p>
+			Ken Thompson --> known for the B Programming Language
+			</p>
+		</li>
+	</ul>
+	<p>You Should Know Who These Saint's Of Computing Are.</p>
+</section>
+<section>
+	<p>From here go was built, and there are a few principals that are built into it. Go is <b>REFLEXIVE</b></p>
+</section>
+<section>
+	<p>
+	Reflexive, Like English, means that the latter part of the sentence or in this case declaration. Describes the beginning half.
+	</p>
+	<pre>
+	<p>In C this will declare a to be a pointer and b to be just a integer.</p>
+	<code class="hljava">
+	int* a, b;
+	</code>
+	<p>In Go, both A and B in this case are declared as pointers.</p>
+	<code class="hljava">
+	 var a, b *int
+	</code>
+	<p>This is cleaner, and as a result easier to read. This is another point Go needed to cover. Google needed MINIMAL retraining time for its engineers.</p>
+
+	</pre>
+</section>
+<section>
+	<p>
+	So that bit about engineers. Lets go back to that.
+	</p>
+</section>
+<section>
+	<p>
+	There are only a few ways to do most things in Go. Like any language you can do things any way, but the Go way is way shorter and faster to write and run.
+	</p>
+	<p>
+	In Go, you can declare a variable and just use it without assigning a type to it.
+	</p>
+</section>
+<section>
+	<pre>
+	<code class="hljava">
+	var example = null
+	example = "Oh, Hi Mark."
+	fmt.Println("Result of example: ", example);
+	</code>
+	</pre>
+
+</section>
+<section>
+	<p>in Go we also have this amazing operator for assignment that looks like this <b>:=</b> I couldn't find a name for it, but it is pretty nice.</p>
+</section>
+<section>
+	<pre>
+	<code class="hljava">
+	var blah := "Hey, I see you there. This presentation is a roller coaster isn't it?"
+	</code>
+
+	<code class="hljava">
+	var blah string = "Hey, I see you there. This presentation is a roller coaster isn't it?"
+	</code>
+
+	<code class="hljava">
+	blah := "Hey, I see you there. This presentation is a roller coaster isn't it?"
+	</code>
+
+	</pre>
+	<p>
+	Those lines of code, compile down to identical assembly. The Go compiler will determine that you meant to put a var declaration in front of the second blah and its type was string. The := syntax is just shorter
+	</p>
+</section>
+<section>
+	<p>You might be asking yourself: <br><br>"gee Scott, why is this important"</p>
+</section>
+<section><p>Great Question!</p></section> 
+<section>
+	<p>It saves you time, and it removes layers of code that you don't want to deal with. It also can handle type casting automatically for you if the type coming in is unknown.</p>
+</section>
+
+<section>
+	<p>
+	There is this thing called the GoLang runtime, it is a extremely small runtime that deals with on the full type casting, conversions, memory managment, garbage collection, and a few other house keeping things. It is compiled into the binary so it add a bit of size, but with the proper flags it can be smaller (production) 
+	</p>
+</section>
+<section>
+	<p>Before I go into the best part of this Language, lets talk about primitives and operators. These are the basics, Then we will talk about keywords, and then. Then I will blow your mind.</p>
+</section>
+<section>
+	<h2>Numeric Types, unsigned integers</h2>
+	<p>
+	uint8       the set of all unsigned  8-bit integers (0 to 255)<br><br>
+	uint16      the set of all unsigned 16-bit integers (0 to 65535)<br><br>
+	uint32      the set of all unsigned 32-bit integers (0 to 4294967295)<br><br>
+	uint64      the set of all unsigned 64-bit integers (0 to 18446744073709551615)<br><br>
+	</p>
+</section>
+<section>
+	<h2>Numeric Types, signed integers</h2>
+	<p>
+	int8        the set of all signed  8-bit integers (-128 to 127)<br><br>
+	int16       the set of all signed 16-bit integers (-32768 to 32767)<br><br>
+	int32       the set of all signed 32-bit integers (-2147483648 to 2147483647)<br><br>
+	int64       the set of all signed 64-bit integers (-9223372036854775808 to 9223372036854775807)<br><br>
+	</p>
+</section>
+<section>
+	<h2>Numeric Types, IEEE-754 Floating Point Numbers</h2>
+	<p>
+	float32     the set of all IEEE-754 32-bit floating-point numbers<br><br>
+	float64     the set of all IEEE-754 64-bit floating-point numbers<br><br>
+	</p>
+</section>
+<section>
+	<h2>Numeric Types, Complex Floating Point Numbers</h2>
+	<p>
+	complex64   the set of all complex numbers with float32 real and imaginary parts<br><br>
+	complex128  the set of all complex numbers with float64 real and imaginary parts<br><br>
+	</p>
+</section>
+
+<section>
+	<h2>Numeric Types, Bytes and Runes</h2>
+	<p>
+	byte        alias for uint8<br><br>
+	rune        alias for int32<br><br>
+	</p>
+</section>
+<section>
+	<p>
+	Notice how I said type infront of all of those? Well there are SEVERAL types in Go, There are actually a LOT.
+	</p>
+</section>
+<section>
+	<p>
+	These are a list of the categories of types that exist in go...
+	</p>
+	<ul>
+		<li>
+			Numeric
+		</li>
+		<li>
+			Array
+		</li>
+		<li>
+			Slice
+		</li>
+		<li>
+			String
+		</li>
+		<li>
+			Stuct
+		</li>
+		<li>
+			Pointer
+		</li>
+		<li>
+			Function AKA Funct
+		</li>
+		<li>
+			Interface
+		</li>
+		<li>
+			There are a lot more...
+		</li>
+	</ul>
+</section>
+<section>
+	<p>
+	Notice how Function AKA Funct was a type in Go? This means that Functions are first class citizens in go and you can pass and store a function in a variable! But wait there's more!
+	</p>
+</section>
+<section>
+	<p>
+	<pre><code>
+	var ExampleFunct = func(inputExample string, secondArgument int)(int, error) {};
+	</code></pre>
+	That stores that function declaration, body, and the works into that variable ExampleFunct. I can then pass that variable arbitrarily to another function and have that execute the function and return the result back out. Meaning you can perform some amazing operations.
+	</p>
+</section>
+<section>
+	<p>
+	Lets move on to operators, or I will never finish in time.
+	</p>
+</section>
+<section>
+<p>These are all of the operators and the puncuation published in the Go Spec.</p>
+<p>
++    &     +=    &=     &&    ==    !=    (    )<br>
+-    |     -=    |=     ||    <     <=    [    ] <br>
+*    ^     *=    ^=     <-    >     >=    {    } <br>
+/    <<    /=    <<=    ++    =     :=    ,    ; <br>
+%    >>    %=    >>=    --    !     ...   .    : <br>
+&^          &^=
+</p>
+</section>
+<section>
+	<p>Those are pretty cool, and I could easily talk about amazing pointer magic you can do with them all day. But that is its own talk.</p>
+</section>
+<section>
+	<p>
+Alright next is keywords. Some of these keywords are Magic, and one of them Should BLOW YOUR MIND. I hope at least.
+	</p>
+</section>
+<section>
+	<p>
+	<h3>break        default      func         interface    select </h3><br>
+	<h3>case         defer        go           map          struct </h3><br>
+	<h3>chan         else         goto         package      switch </h3><br>
+	<h3>const        fallthrough  if           range        type </h3><br>
+	<h3>continue     for          import       return       var </h3><br>
+	</p>
+	<p>Some of these you recognize, others you probably have never seen before. (fallthrough, chan, go) </p>
+</section>
+<section>
+	<h2>fallthrough: a special child</h2>
+	<p>This keyword is used in switch statements, what it means is if encountered. No matter what execute the next condition in the switch statement even if the case is not true. Just force it. This is something I hope you have never seen before. I think its kinda neat.</p>
+</section>
+<section>
+	<p>
+	But that was not what I have been hyping this entire presentation
+	</p>
+</section>
+<section>
+	<p>
+	The most powerful keyword of all
+	</p>
+</section>
+<section>
+	<p>
+	is
+	</p>
+</section>
+<section>
+	<h1>
+	<b>go</b>
+	</h1>
+</section>
+<section>
+	<h3>
+		Go is short for go routine, This. This is the future.
+	</h3>
+	<p>A goroutine is a light weight thread of execution, meaning any where the keyword go is used, the function placed after it will begin executing concurrently with the current function call. If you nest a function inside the funct type, the call is now ASYNCHRONOUS if the parent process exits. It won't it will continue living on. </p>
+</section>
+<section>
+	<p>
+	This in my opinion is the most powerful thing to have built directly into a language, especially one meant for the web. I can take a call to an endpoint to zip a large file, start that zipping process as a async go routine, and return to the user that called for it that the process is under way. I can also pass through the write header for the response directly through so that when the zip finishes it can write it back to the client meanwhile the parent process that dispatches requests is not burdened.
+	</p>
+</section>
+<section>
+	<p>
+	I will be pushing to a git repository soon with some examples on the topics we covered today, I could try and cram them on here; but that is messy.
+	</p>
+</section>
+
+<!-- ending slide -->
+<section id='ending'>
+	<h3>Go is a language I believe Dennis Ritchie would use, why not you?</h3>
+	<p>
+	Scott Spitler
+	<br>
+	<a href='https://github.com/brimonk/osc-slides'>
+		https://github.com/brimonk/osc-slides
+	</a>
+	</p>
+</section>
+
+<!--------------------- END OF THE SLIDES ------------------------------------>
+
+      </div>
+    </div>
+    <script src="../../../lib/reveal.js/lib/js/head.min.js"></script>
+    <script src="../../../lib/reveal.js/js/reveal.js"></script>
+
+    <script>
+
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: '../../../lib/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../../lib/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../../../lib/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../../../lib/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../../../lib/reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../../lib/reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+
+	<!-- getting the slides location -->
+	<script>
+		document.getElementById("audience_location").innerHTML = window.location.href;
+		document.getElementById("audience_location").href = window.location.href;
+	</script>
+
+  </body>
+</html>
