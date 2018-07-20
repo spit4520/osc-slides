@@ -4,9 +4,9 @@
   <head>
     <meta charset="utf-8">
 
-    <title>GoLang-2018 The Best Thing Since Sliced Bread</title>
+    <title>GoLang - Summer 2018</title>
     <meta name="description" content="">
-    <meta name="author" content="Scott Joseph Spitler II aka Wolfgang Hephaestus">
+    <meta name="author" content="Scott Joseph Spitler II">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -42,7 +42,7 @@
 
 <section>
 	<h2>GoLang Its C, But For The Web!</h2>
-	<p>Well Kinda, It Looks A Bit Weird<br>Summer 2018 - Week 2</p>
+	<p>Well Kinda, It Looks A Bit Weird<br></p>
 	<i>Open Source Club<br>Summer 2018 - Week 2</i>
 	<br><br>
 	<p>Follow Along: <a id='audience_location'></a></p>
@@ -53,45 +53,23 @@
 	<h2>Go, Its A Thing</h2>
 	<img src='https://blog.golang.org/go-brand/logos.jpg' class='plain'></img>
 </section>
-<!--If you see this slide and want to delete it, don't its adorable. Warms my cold heart <3-->
 <section>
-	<img src='https://i.redd.it/7u7ik36hz2lz.jpg' class='plain'></img>
-	<p>hmmm</p>
-</section>
-
-<section>
-	<p>soooo where did it come from? Why is it here.</p>
+	<p>What is go?</p>
 </section>
 
 <section>
 	<p>Great question!</p>
 </section>
-
 <section>
-	<p>Alright so. Warning, there is some history with a lot of text coming.</p>
+	<p>Go is a statically typed, compiled language developed at Google and released under and open source License.</p>
 </section>
 
 <section>
-	<p>So Google needed a new language that was faster than PHP, scaled easily, concurency was built into the language, and most importantly build times for large programs could be done in SECONDS.</p>
+	<p>Google needed a language that was faster than PHP, scaled easily, with concurency built in, and most importantly build times for large programs could be done in SECONDS.</p>
 </section>
 
 <section>
-	<p>Hey Brother, that's a pretty tall order. But there is a bigger question here. They must of had issues in the past in order to need something this specific to fulfill them. Well lets take a BREIF walk down memory lane with google.</p>
-</section>
-
-<section>
-	<p>In the beginning there was nothing, and life was simple. Then came the Babbage Engine</p>
-</section>
-<section>
-	<img src='http://images.computerhistory.org/babbage/babbage-engine-main.jpg?w=860' class='plain'></img>
-</section>
-
-<section>
-	<p>And Life Was Good.</p>
-</section>
-
-<section>
-	<p>Are You Lost? Good Lets Get Back On Topic.</p>
+	<p>Let's take a look at the issues that Google had with other languages in the past.</p>
 </section>
 
 <section>
@@ -121,13 +99,7 @@
 
 <section>
 	<p>
-	So if you were a multi billion dollar company with the power to create basically anything if you just WILLED IT into existance, What would you do?
-	</p>
-</section>
-
-<section>
-	<p>
-	So they assembled an elite team of programmers to make it happen.
+	Google got together a team of some of the most influential minds in computing history.
 	</p>
 </section>
 
@@ -148,14 +120,13 @@
 		</li>
 		<li>
 			<p>
-			Ken Thompson --> known for the B Programming Language
+			Ken Thompson --> known for the B Programming Language, And the UNIX operating system
 			</p>
 		</li>
 	</ul>
-	<p>You Should Know Who These Saint's Of Computing Are.</p>
 </section>
 <section>
-	<p>From here go was built, and there are a few principals that are built into it. Go is <b>REFLEXIVE</b></p>
+	<p>From here go was built, and there are a few principles that are built into it: Go is <b>REFLEXIVE</b></p>
 </section>
 <section>
 	<p>
@@ -163,11 +134,11 @@
 	</p>
 	<pre>
 	<p>In C this will declare a to be a pointer and b to be just a integer.</p>
-	<code class="hljava">
+	<code class="go">
 	int* a, b;
 	</code>
 	<p>In Go, both A and B in this case are declared as pointers.</p>
-	<code class="hljava">
+	<code class="go">
 	 var a, b *int
 	</code>
 	<p>This is cleaner, and as a result easier to read. This is another point Go needed to cover. Google needed MINIMAL retraining time for its engineers.</p>
@@ -189,7 +160,7 @@
 </section>
 <section>
 	<pre>
-	<code class="hljava">
+	<code class="go">
 	var example = null
 	example = "Oh, Hi Mark."
 	fmt.Println("Result of example: ", example);
@@ -198,20 +169,20 @@
 
 </section>
 <section>
-	<p>in Go we also have this amazing operator for assignment that looks like this <b>:=</b> I couldn't find a name for it, but it is pretty nice.</p>
+	<p>in Go we also have this short hand for assignment that looks like this <b>:=</b> I couldn't find a name for it, but it is pretty nice.</p>
 </section>
 <section>
 	<pre>
-	<code class="hljava">
-	var blah := "Hey, I see you there. This presentation is a roller coaster isn't it?"
+	<code class="go">
+	var blah := "Go is kinda cool isn't it?"
 	</code>
 
-	<code class="hljava">
-	var blah string = "Hey, I see you there. This presentation is a roller coaster isn't it?"
+	<code class="go">
+	var blah string = "Go is kinda cool isn't it?"
 	</code>
 
-	<code class="hljava">
-	blah := "Hey, I see you there. This presentation is a roller coaster isn't it?"
+	<code class="go">
+	blah := "Go is kinda cool isn't it?"
 	</code>
 
 	</pre>
@@ -220,20 +191,7 @@
 	</p>
 </section>
 <section>
-	<p>You might be asking yourself: <br><br>"gee Scott, why is this important"</p>
-</section>
-<section><p>Great Question!</p></section> 
-<section>
 	<p>It saves you time, and it removes layers of code that you don't want to deal with. It also can handle type casting automatically for you if the type coming in is unknown.</p>
-</section>
-
-<section>
-	<p>
-	There is this thing called the GoLang runtime, it is a extremely small runtime that deals with on the full type casting, conversions, memory managment, garbage collection, and a few other house keeping things. It is compiled into the binary so it add a bit of size, but with the proper flags it can be smaller (production) 
-	</p>
-</section>
-<section>
-	<p>Before I go into the best part of this Language, lets talk about primitives and operators. These are the basics, Then we will talk about keywords, and then. Then I will blow your mind.</p>
 </section>
 <section>
 	<h2>Numeric Types, unsigned integers</h2>
@@ -304,7 +262,7 @@
 			Pointer
 		</li>
 		<li>
-			Function AKA Funct
+			Funct
 		</li>
 		<li>
 			Interface
@@ -316,7 +274,7 @@
 </section>
 <section>
 	<p>
-	Notice how Function AKA Funct was a type in Go? This means that Functions are first class citizens in go and you can pass and store a function in a variable! But wait there's more!
+	Notice how Funct was a type in Go? This means that Functions are first class citizens in go and you can pass and store a function in a variable! But wait there's more!
 	</p>
 </section>
 <section>
@@ -328,12 +286,20 @@
 	</p>
 </section>
 <section>
+	<p>A Quick Note:</p>
+</section>
+<section>
 	<p>
-	Lets move on to operators, or I will never finish in time.
+	There is this thing called the GoLang runtime, it is a extremely small runtime that deals with on the full type casting, conversions, memory managment, garbage collection, and a few other house keeping things. It is compiled into the binary so it add a bit of size, but with the proper flags it can be smaller (production) 
 	</p>
 </section>
 <section>
-<p>These are all of the operators and the puncuation published in the Go Spec.</p>
+	<p>
+	Lets move on to operators.
+	</p>
+</section>
+<section>
+<p>These are all of the operators and the punctuation published in the Go Spec.</p>
 <p>
 +    &     +=    &=     &&    ==    !=    (    )<br>
 -    |     -=    |=     ||    <     <=    [    ] <br>
@@ -392,14 +358,125 @@ Alright next is keywords. Some of these keywords are Magic, and one of them Shou
 	<p>A goroutine is a light weight thread of execution, meaning any where the keyword go is used, the function placed after it will begin executing concurrently with the current function call. If you nest a function inside the funct type, the call is now ASYNCHRONOUS if the parent process exits. It won't it will continue living on. </p>
 </section>
 <section>
-	<p>
-	This in my opinion is the most powerful thing to have built directly into a language, especially one meant for the web. I can take a call to an endpoint to zip a large file, start that zipping process as a async go routine, and return to the user that called for it that the process is under way. I can also pass through the write header for the response directly through so that when the zip finishes it can write it back to the client meanwhile the parent process that dispatches requests is not burdened.
-	</p>
+	<pre>
+	<code class="go">
+	package main
+
+	import "fmt"
+
+	func f(from string) {
+	    for i := 0; i < 3; i++ {
+              fmt.Println(from, ":", i)
+          }
+       }
+
+       func main() {
+
+           // Suppose we have a function call `f(s)`. Here's how
+           // we'd call that in the usual way, running it
+           // synchronously.
+           f("direct")
+
+           // To invoke this function in a goroutine, use
+           // `go f(s)`. This new goroutine will execute
+           // concurrently with the calling one.
+           go f("goroutine")
+
+           // You can also start a goroutine for an anonymous
+           // function call.
+           go func(msg string) {
+               fmt.Println(msg)
+           }("going")
+
+           // Our two function calls are running asynchronously in
+           // separate goroutines now, so execution falls through
+           // to here. This `Scanln` requires we press a key
+           // before the program exits.
+           fmt.Scanln()
+           fmt.Println("done")
+       }
+	</code></pre>
+	<a href="https://play.golang.org/p/6Y8t3Yxd1LD">Run Me!</a>
 </section>
 <section>
 	<p>
-	I will be pushing to a git repository soon with some examples on the topics we covered today, I could try and cram them on here; but that is messy.
+	Lets look at combining go routines with channels.
 	</p>
+</section>
+<section>
+	<p>Example: Multiple Go routines writing back to a single parent routine using channels</p>
+</section>
+<section>
+	<pre><code class="go">
+    c := make(chan string)
+
+    for i := 1; i <= 5; i++ {
+	go func(i int, co chan<- string) {
+            for j := 1; j <= 5; j++ {
+	                co <- fmt.Sprintf("hi from %d.%d", i, j)
+	    }
+	}(i, c)
+    }
+    for i := 1; i <= 25; i++ {
+        fmt.Println(<-c)
+    }
+	</code></pre>
+</section>
+<section>
+	<p>Example: A single parent Go routine writing to multiple children go routines with a single channel</p>
+</section>
+<section>
+	<pre><code class="go">
+c := make(chan int)
+var w sync.WaitGroup
+w.Add(5)
+
+for i := 1; i <= 5; i++ {
+  go func(i int, ci <-chan int) {
+    j := 1
+    for v := range ci {
+      time.Sleep(time.Millisecond)
+      fmt.Printf("%d.%d got %d\n", i, j, v)
+      j += 1
+    }
+    w.Done()
+  }(i, c)
+}
+for i := 1; i <= 25; i++ {
+  c <- i
+}
+close(c)
+w.Wait()
+	</code></pre>
+</section>
+<section>
+	<p>You cannot accomplish either of these tasks in C without heavy amount of head and heart ache. In C reading from a Pipe is guaranteed by the kernel with the PIPE_BUF flag, since multiple processes would be sharing the same File Descriptor. The kernel would choose only ONE to receive it.</p>
+</section>
+<section>
+	<p>Recursion becomes Fun again with go routines!</p>
+</section>
+<section>
+	<pre><code class="go">
+func recurses(input int) <-chan int {
+	c := make(chan int)
+	go func() {
+		// Recursive implementation calls recurses() and
+		// writes data to the channel instead of returning.
+		// eg:
+		//    c <- 100 + recurses(input - 3)
+		//    c <- 100 - recurses(input + 3)
+		close(c)
+	} ()
+	return c
+}
+func main() {
+	for value := range recurses(100) {
+		// range unblocks a dfs traversal on demand.  The
+	        // values are not calculated until they need to be.  This
+		// acts very similar to a python generator.
+	}
+}
+	</code></pre>
 </section>
 
 <!-- ending slide -->
